@@ -122,23 +122,14 @@ public class Order {
     public static void reject(DeadlineReached deadlineReached) {
         //implement business logic here:
 
-        /** Example 1:  new item 
-        Order order = new Order();
-        repository().save(order);
-
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(deadlineReached.get???()).ifPresent(order->{
-            
-            order // do something
+        repository().findById(deadlineReached.getOrderId()).ifPresent(order->{
+            order.setStatus("REJECTED");
             repository().save(order);
+
+            new OrderRejected(order).publishAfterCommit();
 
 
          });
-        */
 
     }
     //>>> Clean Arch / Port Method
